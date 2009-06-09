@@ -1,0 +1,41 @@
+ExpireOnRestart
+===============
+
+ExpireOnRestart is a simple Rails plugin that deletes a given set of files whenever the server starts up. The main use
+for this is to get rid of cached assets (such as javascripts and stylesheets) more easily without having to clean them
+up manually or via a Capistrano task whenever you deploy a new version of your app.
+
+Example
+=======
+
+If you only want to expire cached javascripts and/or stylesheets, you don't have to do anything at all. Just use the
+regular caching syntax and ExpireOnRestart will handle the rest for you.
+
+  javascript_include_tag 'a', 'couple', 'of', 'javascript', 'files', :cache => true
+  javascript_include_tag 'more', 'javascript', 'files', :cache => 'my_cache'
+
+  stylesheet_link_tag 'a', 'couple', 'of', 'stylesheet', 'files', :cache => true
+  stylesheet_link_tag 'more', 'stylesheet', 'files', :cache => 'my_cache'
+
+All javascript and stylesheet caches that are defined this way are automatically deleted when the server (re)starts.
+
+If you want to manually expire files (for example if you create dynamic javascript/CSS and cache it), you can use the
+expire_on_restart method:
+
+  expire_on_restart 'my_file'
+  expire_on_restart 'mulitple', 'files'
+  expire_on_restart ['array', 'of', 'files]
+
+All paths given to expire_on_restart are considered to be relative your application root aka Rails.root.
+
+Note
+====
+
+If you want to regenerate your caches right when you start up your server, this plugin is not for you!
+
+Feedback
+========
+
+Feel free to send me any feedback you might have and also feel free to fork away! ;-)
+
+Copyright (c) 2009 Clemens Kofler <clemens@railway.at>, www.railway.at, released under the MIT license
