@@ -5,7 +5,7 @@ module ExpireOnRestart
     include Singleton
 
     def add(*files)
-      File.open(LIST_FILE, 'a+') { |f| f.write("\n" + Array(files).flatten.join("\n")) }
+      File.open(LIST_FILE, 'a+', 0666) { |f| f.write("\n" + Array(files).flatten.join("\n")) }
     end
 
     def expire_marked_files
